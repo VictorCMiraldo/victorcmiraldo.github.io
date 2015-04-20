@@ -5,7 +5,7 @@ description: "..."
 modified: 2015-04-20
 tags: [controversial, non-technical, philosophy]
 image:
-  feature: abstract-08.jpg
+  feature: abstract-8.jpg
   credit: dargadgetz
   creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
 ---
