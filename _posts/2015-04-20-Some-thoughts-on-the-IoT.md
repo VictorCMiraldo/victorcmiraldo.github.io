@@ -8,6 +8,7 @@ image:
   feature: abstract-8.jpg
   credit: dargadgetz
   creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+share: false
 ---
 
 We know the future is arriving when we start to hear about the [IoT](https://en.wikipedia.org/wiki/Internet_of_Things).
