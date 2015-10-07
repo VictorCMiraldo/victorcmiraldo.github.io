@@ -18,13 +18,19 @@ diplomas, contact me via e-mail.
 
 # Education
 
+### **2015 - Future**
+
+> - I am currently enroled as a PhD student at University of Utrecht, the Netherlands.
+>   My project is somewhere along the lines of *structure-aware version control systems*
+
 ### **2014 - 2015**
 
 > - Erasmus+ Exchange MSc student. University of Utrecht. Working
 >   on my MSc thesis entitled "Proofs by Rewrite in Agda", available on 
 >   [GitHub](https://github.com/VictorCMiraldo/msc-agda-tactics).
->   This dissertation is being supervised by Professor
->   José Nuno Oliveira (University of Minho) and Wouter Swierstra (University of Utrecht)
+>   This dissertation was supervised by Professor
+>   José Nuno Oliveira (University of Minho) and Wouter Swierstra (University of Utrecht).
+>   [pdf](/papers/MiraldoMsc.pdf)
    
 ### **2013 - 2014**
 
@@ -46,10 +52,12 @@ diplomas, contact me via e-mail.
 
 # Publications
 
+> - Victor C. Miraldo.  Relational Equality in the Intensional Theory of Types.
+>   In Student-track, *RAMiCS 2015, Braga*, Portugal, 2015. [pdf](/papers/ramics15.pdf)
 > - Victor C. Miraldo, Cláudio B. Lourenço, Jorge S. Pinto, and Maria João  
->   Frade. Experimenting with predicate abstraction. In *INFórum, Évora*, 2013.
+>   Frade. Experimenting with predicate abstraction. In *INFórum, Évora*, Portugal, 2013. [pdf](/papers/INForum2013-1.pdf)
 > - Cláudio B. Lourenço, Victor C. Miraldo, Jorge S. Pinto and Maria João  
->   Frade. SPARK-BMC: Checking SPARK code for bugs. In *INFórum, Évora*, 2013.
+>   Frade. SPARK-BMC: Checking SPARK code for bugs. In *INFórum, Évora*, Portugal, 2013.
 
 # Research
 
@@ -61,7 +69,7 @@ diplomas, contact me via e-mail.
 >   Agda, from where the [by](https://github.com/VictorCMiraldo/agda-rw)
 >   tactic was born. On the other hand, we wanted to use such tactic to
 >   provide a better equational reasoning framework for Relational Algebra.
->   **On-going**
+>   [pdf](/papers/MiraldoMsc.pdf)
 
 
 ### **2013 - 2014**
@@ -87,6 +95,7 @@ diplomas, contact me via e-mail.
 >   for the language.
 
 ### **2011 - 2012**
+
 > - Integration into Research Grant on  
 >  "Interpretations of the lambda-calculus on interaction nets."  
 >   University of Minho, Braga, Portugal.  
@@ -96,5 +105,5 @@ diplomas, contact me via e-mail.
 >   which is a formalism very suitable for parallel computations. The process goes through
 >   translating a term to its equivalent logical proposition, encoding it in linear logic,
 >   going for it's proof net representation and, finally, translating to a specific set of
->   interaction nets.
+>   interaction nets. [pdf (Portuguese)](/papers/LambdaCalc-report-PT.pdf)
 
