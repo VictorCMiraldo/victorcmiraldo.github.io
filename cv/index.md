@@ -52,6 +52,9 @@ diplomas, contact me via e-mail.
 
 # Publications
 
+> - José Nuno Oliveira, Victor Cacciari Miraldo, “Keep definition, change category” — A practical 
+>   approach to state-based system calculi, Journal of Logical and Algebraic Methods in Programming, 2015.
+>   [link (Elsevier)](http://dx.doi.org/10.1016/j.jlamp.2015.11.007)
 > - Victor C. Miraldo.  Relational Equality in the Intensional Theory of Types.
 >   In Student-track, *RAMiCS 2015, Braga*, Portugal, 2015. [pdf](/papers/ramics15.pdf)
 > - Victor C. Miraldo, Cláudio B. Lourenço, Jorge S. Pinto, and Maria João  
