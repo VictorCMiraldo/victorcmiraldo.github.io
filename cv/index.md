@@ -15,6 +15,7 @@ share: false
 Here is where you are going to find somewhat more detailed information about my academic background.
 This page is intended to be a informal *CV*. For specifics, such as transcript of records and
 diplomas, contact me via e-mail.
+Here is my [gpg](/cv/vcmiraldo.gpg.pub) key (*sha256 37182eaea2feb95443ce6fa060b9d2a55fa942518c3e6039a1e71a6627b59705*).
 
 # Education
 
