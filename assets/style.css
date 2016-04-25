@@ -1,0 +1,117 @@
+* {
+  font-family: Arial , sans-serif;
+  background: #F0F0F0;
+  font-size: 100%;
+}
+
+a, u {
+  text-decoration: none;
+  color: #004433;
+}
+
+a:hover{
+  text-decoration: underline;
+  color: #007054;
+}
+
+ul
+{
+ list-style-type: none;
+}
+
+ul > li {
+  padding-top: 0.5em;
+}
+
+.header
+{
+  margin: auto;
+  padding-left: 0em;
+  padding-top: 2em;
+  padding-bottom: 1em;
+  font-family: bold;
+  font-size: 250%;
+  color: #004D39;
+}
+
+.picture
+{
+  margin: auto;
+  max-width: 13em;
+}
+
+div.cleft
+{
+  margin: auto;
+  float: left;
+  width: 15em;
+}
+
+div.menu
+{
+  padding-left: 1em;
+  font-family: bold;
+  font-size: 140%;
+}
+
+div.menuitem
+{
+  padding-top: 1em;
+}
+
+div.cright
+{
+  margin: auto;
+  width: 45em;
+  float: left;
+}
+
+body 
+{
+  margin: auto;
+  padding-right: 1em;
+  padding-left: 1em; 
+  max-width: 70em;
+  color: black;
+  font-size: 100%;
+  line-height: 140%;
+}
+
+code 
+{
+  font-family: monospace;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a 
+{ 
+    text-decoration: none;
+    color: #004433; 
+}
+h1, h2, h3, h4, h5 { 
+  font-family: verdana;
+  font-weight: bold;
+  color: #004433; 
+}
+h1 {
+        font-size: 130%;
+}
+
+h2 {
+        font-size: 110%;
+}
+
+h3 {
+        font-size: 95%;
+}
+
+h4 {
+        font-size: 90%;
+        font-style: italic;
+}
+
+h5 {
+        font-size: 90%;
+        font-style: italic;
+}
+
+
