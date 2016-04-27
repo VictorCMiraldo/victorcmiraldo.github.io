@@ -68,7 +68,7 @@ diplomas, contact me via e-mail.
 
 ### **2015 - Future**
 
-> - I am currently enroled as a PhD student at University of Utrecht, the Netherlands.
+> - I am currently enroled as a PhD candidate at University of Utrecht, the Netherlands.
 >   My project is somewhere along the lines of *structure-aware version control systems*
 
 ### **2014 - 2015**
