@@ -2,6 +2,7 @@
 
 if [[ "$#" -eq "0" ]]; then
   echo "I need at least a file to feed pandoc."
+  exit 1
 fi
 
 FILE=${1%.md}

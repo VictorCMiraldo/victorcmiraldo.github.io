@@ -14,7 +14,7 @@ For a more detailed account of my publications, check my [cv](cv.html).
 ### 2016
 
 > - *Structure Aware Version Control* , a generic approach using Agda.
->   Submitted to ICFP, 2016. [draft](data/icfp2016_submitted.pdf).
+>   Submitted to IFL, 2016. [(draft pdf)](data/ifl2016.pdf).
 
 ## Contact
 
