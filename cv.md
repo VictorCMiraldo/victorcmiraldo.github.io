@@ -5,17 +5,32 @@ diplomas, contact me via e-mail.
 
 # Publications
 
+> - Victor Cacciari Miraldo, Pierre-Évariste Dagand and Wouter Swierstra,
+>   Type-Directed Diffing of Structured Data, In *TyDe 2017, Oxford*. [pdf](data/tyde2017.pdf)
+>
 > - José Nuno Oliveira, Victor Cacciari Miraldo, “Keep definition, change category” — A practical 
 >   approach to state-based system calculi, Journal of Logical and Algebraic Methods in Programming, 2015.
 >   [link (Elsevier)](http://dx.doi.org/10.1016/j.jlamp.2015.11.007)
+>
 > - Victor C. Miraldo.  Relational Equality in the Intensional Theory of Types.
 >   In Student-track, *RAMiCS 2015, Braga*, Portugal, 2015. [pdf](data/ramics15.pdf)
+>
 > - Victor C. Miraldo, Cláudio B. Lourenço, Jorge S. Pinto, and Maria João  
 >   Frade. Experimenting with predicate abstraction. In *INFórum, Évora*, Portugal, 2013. [pdf](data/INForum2013-1.pdf)
+>
 > - Cláudio B. Lourenço, Victor C. Miraldo, Jorge S. Pinto and Maria João  
 >   Frade. SPARK-BMC: Checking SPARK code for bugs. In *INFórum, Évora*, Portugal, 2013.
 
+## Technical Reports
+
+> - Victor Cacciari Miraldo and Wouter Swierstra, Structure Aware Version Control: A generic approach using Agda. University of Utrecht. [pdf](http://www.cs.uu.nl/research/techreps/UU-CS-2017-002.html)
+
 # Research
+
+### **2015 - now**
+
+> - PhD Candidate at Utrecht University, Software-Technology group,
+>   under the supervision of Wouter Swierstra.
 
 ### **2014 - 2015**
 
@@ -66,6 +81,11 @@ diplomas, contact me via e-mail.
 
 # Education
 
+### **2017 - 2018**
+
+> - *Computer-aided Security Proofs* Fall-school, University of Aarhus, DK.
+> - Summer Internship at Oracle Labs, Burlingon MA, USA.
+
 ### **2016 - 2017**
 
 > - *Midlands Graduate School* Summer School, University of Birmingham, UK.
@@ -99,5 +119,5 @@ diplomas, contact me via e-mail.
     
 ### **2009 - 2012**
 
-> Bachelor Student. University of Minho, Braga, Portugal.  
-> *Computer Science*. Graduated as best-of-class.
+> - Bachelor Student. University of Minho, Braga, Portugal.  
+>   *Computer Science*. Graduated as best-of-class.
