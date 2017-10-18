@@ -1,36 +1,70 @@
+* {
+  font-family: Arial , sans-serif;
+  background: #F0F0F0;
+  font-size: 100%;
+}
+
+a, u {
+  text-decoration: none;
+  color: #004433;
+}
+
+a:hover{
+  text-decoration: underline;
+  color: #007054;
+}
+
+ul
+{
+ list-style-type: none;
+}
+
+ul > li {
+  padding-top: 0.5em;
+}
+
 .header
 {
   margin: auto;
   padding-left: 0em;
   padding-top: 2em;
   padding-bottom: 1em;
-  font-family: Verdana , sans-serif;
   font-family: bold;
   font-size: 250%;
-}
-
-.b4body
-{
-  padding-top: 2em;
-  padding-left: 1em;
-  font-size: 140%;
-  min-height: 200px;
-}
-
-.menu
-{
-  font-family: sans-serif;
+  color: #004D39;
 }
 
 .picture
 {
-  width: 230px;
-  float: right;
+  margin: auto;
+  max-width: 13em;
+  padding-right: 6em;
 }
 
-.actualbody
+div.cleft
 {
-  padding-left: 2em;
+  margin: auto;
+  float: left;
+  width: 15em;
+}
+
+div.menu
+{
+  padding-left: 1em;
+  font-family: bold;
+  font-size: 140%;
+}
+
+div.menuitem
+{
+  padding-top: 1em;
+}
+
+div.cright
+{
+  margin: auto;
+  width: 45em;
+  float: left;
 }
 
 body 
@@ -38,20 +72,10 @@ body
   margin: auto;
   padding-right: 1em;
   padding-left: 1em; 
-  max-width: 60em;
+  max-width: 70em;
   color: black;
-  font-family: Verdana, sans-serif;
   font-size: 100%;
   line-height: 140%;
-  color: #333; 
-}
-
-pre 
-{
-  border: 1px dotted gray;
-  background-color: #ececec;
-  color: #1111111;
-  padding: 0.5em;
 }
 
 code 
@@ -62,13 +86,12 @@ code
 h1 a, h2 a, h3 a, h4 a, h5 a 
 { 
     text-decoration: none;
-    color: #7a5ada; 
+    color: #004433; 
 }
 h1, h2, h3, h4, h5 { 
   font-family: verdana;
   font-weight: bold;
-  border-bottom: 1px dotted black;
-  color: #00374a; 
+  color: #004433; 
 }
 h1 {
         font-size: 130%;
@@ -92,26 +115,4 @@ h5 {
         font-style: italic;
 }
 
-h1.title {
-        font-size: 200%;
-        font-weight: bold;
-        padding-top: 0.2em;
-        padding-bottom: 0.2em;
-        text-align: left;
-        border: none;
-}
-
-dt code {
-        font-weight: bold;
-}
-dd p {
-        margin-top: 0;
-}
-
-#footer {
-        padding-top: 1em;
-        font-size: 70%;
-        color: gray;
-        text-align: center;
-        }
 
