@@ -5,6 +5,16 @@ diplomas, contact me via e-mail.
 
 # Publications
 
+> - Victor Cacciari Miraldo, Harold Carr, Alex Kogan, Mark Moir, Maurice Herlihy,
+>   Authenticated Modular Maps in Haskell, In *TyDe 2018, St. Louis*.
+>
+> - Alejandro Serrano Mena, Victor Cacciari Miraldo,
+>   Generic Programming of All Kinds, In *Haskell Symposyum 2018, St. Louis*. [pdf](data/hask2018_draft.pdf)
+>   (conditionally accepted)
+>
+> - Victor Cacciari Miraldo, Alejandro Serrano Mena,
+>   Sums of Products for Mutually Recursive Datatypes, In *TyDe 2018, St. Louis*. [pdf](data/tyde2018_draft.pdf)
+>
 > - Victor Cacciari Miraldo, Pierre-Évariste Dagand and Wouter Swierstra,
 >   Type-Directed Diffing of Structured Data, In *TyDe 2017, Oxford*. [pdf](data/tyde2017.pdf)
 >
@@ -27,10 +37,24 @@ diplomas, contact me via e-mail.
 
 # Research
 
-### **2015 - now**
+### **2017 - now**
+
+> - Continuation of my PhD at Utrecht University.
+>
+> - Part-time employee of Oracle Labs, continuing the work
+>   performed during my internship.
+
+### **2017 - 2017**
+
+> - Internship at Oracle Labs Burlington, where I worked in the
+>   Scalable Synchronization Group (SSRG) under the supervision of
+>   Mark Moir. We conducted research in the blockchain area.
+
+### **2015 - 2017**
 
 > - PhD Candidate at Utrecht University, Software-Technology group,
->   under the supervision of Wouter Swierstra.
+>   under the supervision of Wouter Swierstra. Paused the PhD for an
+>   internship.
 
 ### **2014 - 2015**
 
