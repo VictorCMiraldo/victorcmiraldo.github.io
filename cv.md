@@ -5,15 +5,18 @@ diplomas, contact me via e-mail.
 
 # Publications
 
+> - Alejandro Serrano Mena, Victor Cacciari Miraldo,
+>   Classes of Arbitrary Kind, In *PADL 2019, Lisbon*. [pdf](data/padl2019_draft.pdf) 
+>
 > - Victor Cacciari Miraldo, Harold Carr, Alex Kogan, Mark Moir, Maurice Herlihy,
->   Authenticated Modular Maps in Haskell, In *TyDe 2018, St. Louis*.
+>   Authenticated Modular Maps in Haskell, In *TyDe 2018, St. Louis*. [slides](data/tyde2018_hamm_slides.pdf)
 >
 > - Alejandro Serrano Mena, Victor Cacciari Miraldo,
->   Generic Programming of All Kinds, In *Haskell Symposyum 2018, St. Louis*. [pdf](data/hask2018_draft.pdf)
->   (conditionally accepted)
+>   Generic Programming of All Kinds, In *Haskell Symposyum 2018, St. Louis*. [pdf](data/hask2018_draft.pdf) [slides](data/hask2018_slides.pdf)
+>   
 >
 > - Victor Cacciari Miraldo, Alejandro Serrano Mena,
->   Sums of Products for Mutually Recursive Datatypes, In *TyDe 2018, St. Louis*. [pdf](data/tyde2018_draft.pdf)
+>   Sums of Products for Mutually Recursive Datatypes, In *TyDe 2018, St. Louis*. [pdf](data/tyde2018_draft.pdf) [slides](data/tyde2018_slides.pdf)
 >
 > - Victor Cacciari Miraldo, Pierre-Évariste Dagand and Wouter Swierstra,
 >   Type-Directed Diffing of Structured Data, In *TyDe 2017, Oxford*. [pdf](data/tyde2017.pdf)
