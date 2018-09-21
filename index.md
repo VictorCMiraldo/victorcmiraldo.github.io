@@ -9,6 +9,12 @@ structured data, which lieas at the heart of the difficulties for version contro
 
 ## Slides and Talks
 
+> - Haskell Symposyum ([Haskell](https://icfp18.sigplan.org/track/haskellsymp-2018-papers)), 2018,
+>   [slides](data/hask2018_slides.pdf).
+>
+> - Type Driven Development ([TyDe](https://icfp18.sigplan.org/track/tyde-2018)), 2018,
+>   [hamm-slides](data/tyde2018_hamm_slides.pdf) [mrsop-slides](data/tyde2018_slides.pdf).
+>
 > - Dutch Functional Programming Day ([FP-dag](http://clean.cs.ru.nl/NL-FP_dag_2018)), 2018,
 >   [slides](data/fpdag2018.pdf).
 
