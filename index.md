@@ -26,5 +26,5 @@ heart of the difficulties for version control.
 
 You can contact me at *v.cacciarimiraldo* at:
 
-- *uu.nl*     ([gpg key](data/v.cacciaririraldo-at-uu.gpg.pub))
+- *uu.nl*     ([gpg key](data/v.cacciarimiraldo-at-uu.gpg.pub))
 - *gmail.com* ([gpg key](data/v.cacciarimiraldo-at-gmail.gpg.pub))
