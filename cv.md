@@ -5,17 +5,20 @@ diplomas, contact me via e-mail.
 
 # Publications
 
-> - Alejandro Serrano Mena, Victor Cacciari Miraldo,
->   Classes of Arbitrary Kind, In *PADL 2019, Lisbon*. [pdf](data/padl2019_draft.pdf) 
+> - Victor Cacciari Miraldo and Wouter Swierstra,
+>   An Efficient Algorithm for Type-Safe Structural Diffing, In *ICFP 2019, Berlin*. [pdf](data/icfp2019.pdf) 
+>
+> - Alejandro Serrano Mena and Victor Cacciari Miraldo,
+>   Classes of Arbitrary Kind, In *PADL 2019, Lisbon*. [pdf](data/padl2019.pdf) 
 >
 > - Victor Cacciari Miraldo, Harold Carr, Alex Kogan, Mark Moir, Maurice Herlihy,
 >   Authenticated Modular Maps in Haskell, In *TyDe 2018, St. Louis*. [slides](data/tyde2018_hamm_slides.pdf)
 >
-> - Alejandro Serrano Mena, Victor Cacciari Miraldo,
+> - Alejandro Serrano Mena and Victor Cacciari Miraldo,
 >   Generic Programming of All Kinds, In *Haskell Symposyum 2018, St. Louis*. [pdf](data/hask2018_draft.pdf) [slides](data/hask2018_slides.pdf)
 >   
 >
-> - Victor Cacciari Miraldo, Alejandro Serrano Mena,
+> - Victor Cacciari Miraldo and Alejandro Serrano Mena,
 >   Sums of Products for Mutually Recursive Datatypes, In *TyDe 2018, St. Louis*. [pdf](data/tyde2018_draft.pdf) [slides](data/tyde2018_slides.pdf)
 >
 > - Victor Cacciari Miraldo, Pierre-Évariste Dagand and Wouter Swierstra,

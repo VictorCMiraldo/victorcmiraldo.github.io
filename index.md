@@ -1,11 +1,14 @@
 
-I am currently enroled as a PhD candidate at University of Utrecht, the Netherlands.
-My project is somewhere along the lines of *structure-aware version control systems*,
-supervised by Wouter Swierstra.
+I am currently enroled as a PhD candidate at University of Utrecht,
+the Netherlands.  My project is somewhere along the lines of
+*structure-aware version control systems*, *generic programming* and
+*dependently typed programming*. My supervisor is Wouter Swierstra.
  
-Our goal is to develop a datatype-generic approach to diffing, in Agda. Having
-a solid and formal notion of diffing should let us also tackle the problem of merging
-structured data, which lieas at the heart of the difficulties for version control.
+Our goal is to develop a datatype-generic approach to diffing abstract
+syntax trees. We use Haskell and Agda to program and verify our
+techniques. Having a solid and formal notion of diffing should let us
+also tackle the problem of merging structured data, which lieas at the
+heart of the difficulties for version control.
 
 ## Slides and Talks
 
@@ -21,5 +24,6 @@ structured data, which lieas at the heart of the difficulties for version contro
 
 ## Contact
 
-You can contact me at *v.cacciarimiraldo* at *uu.nl*. 
-[gpg](data/vcmiraldo.gpg.pub) key (*sha256 37182eaea2feb95443ce6fa060b9d2a55fa942518c3e6039a1e71a6627b59705*).
+You can contact me at *v.cacciarimiraldo* at:
+- *uu.nl*     ([gpg key](data/v.cacciarimiraldo-at-uu.gpg.pub), *sha256 574e78f54dfc4625a0553a7d66cf221855630c7907f26c57cbee7624a629b116*)
+- *gmail.com* ([gpg key](data/v.cacciarimiraldo-at-gmail.gpg.pub), *sha256 aaf27a4f71735489514b743be3a7bec6b6dd66cd671ecfa29bc9a625c5de08f0*)
