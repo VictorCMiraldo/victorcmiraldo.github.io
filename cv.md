@@ -111,6 +111,10 @@ diplomas, contact me via e-mail.
 
 # Education
 
+### **2018 - 2019**
+
+> - *Estonian Winter School in Computer Science*, Palmse, ES.
+
 ### **2017 - 2018**
 
 > - *Computer-aided Security Proofs* Fall-school, University of Aarhus, DK.
@@ -123,7 +127,6 @@ diplomas, contact me via e-mail.
 ### **2015 - 2016**
 
 > - Enroled as a PhD candidate at University of Utrecht, the Netherlands.
->   My project is somewhere along the lines of *structure-aware version control systems*
 
 ### **2014 - 2015**
 
@@ -150,4 +153,4 @@ diplomas, contact me via e-mail.
 ### **2009 - 2012**
 
 > - Bachelor Student. University of Minho, Braga, Portugal.  
->   *Computer Science*. Graduated as best-of-class.
+>   *Computer Science*. Graduated with ECTS scale A.
