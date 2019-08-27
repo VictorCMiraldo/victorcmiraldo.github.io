@@ -10,8 +10,11 @@ techniques. Having a solid and formal notion of diffing should let us
 also tackle the problem of merging structured data, which lieas at the
 heart of the difficulties for version control.
 
-## Slides and Talks
+## Some Slides and Talks
 
+> - International Conference on Functional Programming ([ICFP](https://icfp19.sigplan.org/track/icfp-2019-papers#event-overview)), 
+>   2019, [slides](data/icfp2019_slides.pdf).
+>
 > - Haskell Symposyum ([Haskell](https://icfp18.sigplan.org/track/haskellsymp-2018-papers)), 2018,
 >   [slides](data/hask2018_slides.pdf).
 >
