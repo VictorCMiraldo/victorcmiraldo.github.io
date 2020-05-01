@@ -12,17 +12,12 @@ heart of the difficulties for version control.
 
 ## Some Slides and Talks
 
-> - International Conference on Functional Programming ([ICFP](https://icfp19.sigplan.org/track/icfp-2019-papers#event-overview)), 
+
+> - LambdaWorld, The Ins and Outs of Generic Programming
+> 2019, [dedicated repo](https://github.com/VictorCMiraldo/lw2019-generics-workshop).
+
+> - International Conference on Functional Programming ([ICFP](https://icfp19.sigplan.org/track/icfp-2019-papers#event-overview)),
 >   2019, [slides](data/icfp2019_slides.pdf).
->
-> - Haskell Symposyum ([Haskell](https://icfp18.sigplan.org/track/haskellsymp-2018-papers)), 2018,
->   [slides](data/hask2018_slides.pdf).
->
-> - Type Driven Development ([TyDe](https://icfp18.sigplan.org/track/tyde-2018)), 2018,
->   [hamm-slides](data/tyde2018_hamm_slides.pdf) [mrsop-slides](data/tyde2018_slides.pdf).
->
-> - Dutch Functional Programming Day ([FP-dag](http://clean.cs.ru.nl/NL-FP_dag_2018)), 2018,
->   [slides](data/fpdag2018.pdf).
 
 
 ## Contact
