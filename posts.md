@@ -1,0 +1,1 @@
+- *September 28, 2020*, [List of publications and deliverables from my PhD](posts/2020-09-28-struct-diff.html)
