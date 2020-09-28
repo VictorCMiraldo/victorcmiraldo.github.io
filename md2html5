@@ -8,4 +8,4 @@ fi
 FILE=${1%.md}
 shift
 
-pandoc -t html5 -s -S -c assets/style.css -H assets/header.html -B assets/b4body.html -A assets/footer.html "$FILE.md" -o "$FILE.html"
+pandoc --template my-html5.template -f markdown+smart -t html5 -s -c assets/style.css -H assets/header.html -B assets/b4body.html -A assets/footer.html "$FILE.md" -o "$FILE.html"

@@ -1,4 +1,3 @@
-
 I am currently enroled as a PhD candidate at University of Utrecht,
 the Netherlands.  My project is somewhere along the lines of
 *structure-aware version control systems*, *generic programming* and
