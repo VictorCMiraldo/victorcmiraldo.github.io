@@ -42,18 +42,18 @@ libraries for generic programming in Haskell.
 ## List of Publications
 
 > 1. Victor Cacciari Miraldo,
->   Type Safe Generic Differencing of Mutually Recursive Families, PhD thesis. [pdf](data/MiraldoPhD.pdf)
+>   Type Safe Generic Differencing of Mutually Recursive Families, PhD thesis. [pdf](/data/MiraldoPhD.pdf)
 >
 > 2. Victor Cacciari Miraldo and Wouter Swierstra,
->   An Efficient Algorithm for Type-Safe Structural Diffing, In *ICFP 2019, Berlin*. [pdf](data/icfp2019.pdf)
+>   An Efficient Algorithm for Type-Safe Structural Diffing, In *ICFP 2019, Berlin*. [pdf](/data/icfp2019.pdf)
 >
 > 3. Alejandro Serrano Mena and Victor Cacciari Miraldo,
->   Generic Programming of All Kinds, In *Haskell Symposyum 2018, St. Louis*. [pdf](data/hask2018_draft.pdf) [slides](data/hask2018_slides.pdf)
+>   Generic Programming of All Kinds, In *Haskell Symposyum 2018, St. Louis*. [pdf](/data/hask2018_draft.pdf) [slides](/data/hask2018_slides.pdf)
 > 4. Victor Cacciari Miraldo and Alejandro Serrano Mena,
->   Sums of Products for Mutually Recursive Datatypes, In *TyDe 2018, St. Louis*. [pdf](data/tyde2018_draft.pdf) [slides](data/tyde2018_slides.pdf)
+>   Sums of Products for Mutually Recursive Datatypes, In *TyDe 2018, St. Louis*. [pdf](/data/tyde2018_draft.pdf) [slides](/data/tyde2018_slides.pdf)
 >
 > 5. Victor Cacciari Miraldo, Pierre-Évariste Dagand and Wouter Swierstra,
->   Type-Directed Diffing of Structured Data, In *TyDe 2017, Oxford*. [pdf](data/tyde2017.pdf)
+>   Type-Directed Diffing of Structured Data, In *TyDe 2017, Oxford*. [pdf](/data/tyde2017.pdf)
 
 ## Software
 
