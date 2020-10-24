@@ -1,5 +1,5 @@
 I am currently working at the testing and verification team
-at the [DFINITY Foundation](www.dfinity.org). Our objective is
+at the [DFINITY Foundation](https://www.dfinity.org). Our objective is
 to ensure that the implementation of the internet computer
 abides by its specification and that said specification does
 does provide the guarantees it promises. Our work ranges from
