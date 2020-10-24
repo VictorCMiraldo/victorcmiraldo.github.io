@@ -1,7 +1,6 @@
 
-Here is where you are going to find somewhat more detailed information about my academic background.
-This page is intended to be a informal *CV*. For specifics, such as transcript of records and
-diplomas, contact me via e-mail.
+This page is a informal summary of my publications and the research projects I've been
+involed in.
 
 # Publications
 
@@ -45,7 +44,8 @@ diplomas, contact me via e-mail.
 
 ### **2017 - 2020**
 
-> - Continuation of my PhD at Utrecht University.
+> - Continuation and conclusion of my PhD at Utrecht University.
+>   I defended my PhD thesis ([pdf](data/MiraldoPhD.pdf)) in October 2020.
 >
 > - Part-time employee of Oracle Labs, continuing the work
 >   performed during my internship.
