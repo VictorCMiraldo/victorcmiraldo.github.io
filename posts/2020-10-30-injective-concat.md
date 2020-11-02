@@ -1,5 +1,5 @@
 ---
-pagetitle: Injective ByteString `concat` in Agda
+is-post: true
 ---
 
 # Injective ByteString `concat` in Agda
