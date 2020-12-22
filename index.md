@@ -3,7 +3,7 @@ at the [DFINITY Foundation](https://www.dfinity.org). Our objective is
 to ensure that the implementation of the internet computer
 abides by its specification and that said specification does
 does provide the guarantees it promises. Our work ranges from
-the development of developping testing frameworks to formal models.
+the development of testing frameworks to formal models.
 
 ## Contact
 
