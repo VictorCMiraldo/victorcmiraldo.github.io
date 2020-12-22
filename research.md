@@ -4,6 +4,9 @@ involed in.
 
 # Publications
 
+> - Victor Cacciari Miraldo, Harold Carr, Mark Moir, Lisandra Silva and Guy L. Steele Jr.
+>   Formal Verification of Authenticated, Append-Only, Skip Lists in Agda, In *CPP 2021, Virtual*. [pdf](data/cpp2021.pdf)
+>
 > - Victor Cacciari Miraldo and Wouter Swierstra,
 >   An Efficient Algorithm for Type-Safe Structural Diffing, In *ICFP 2019, Berlin*. [pdf](data/icfp2019.pdf)
 >
