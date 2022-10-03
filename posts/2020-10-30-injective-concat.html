@@ -105,103 +105,221 @@ Victor Cacciari Miraldo
   </div>
 </div>
 <div class="column right">
-<h1 id="injective-bytestring-concat-in-agda">Injective ByteString <code>concat</code> in Agda</h1>
+<h1 id="injective-bytestring-concat-in-agda">Injective ByteString
+<code>concat</code> in Agda</h1>
 <h2 id="the-problem">The Problem</h2>
-<p>This little post arises from a small exercise we’ve done while at Oracle Labs, when we (myself, Mark Moir, Harold Carr and Lisandra Silva) were working on formal verification of authenticated data structures and needed to reason about the hash of certain compound structs. It is often the case one needs to combine two or more values and feed the result to a hash function. For the sake of this discussion, say we are writing some Haskell function <code>hashL</code> that is supposed to combine a list of <code>ByteString</code>s into a finite length bitstring in a <em>collision resistant</em> fashion. We say a hash function <code>h</code> is collision resistant iff it is computationally infeasible to find two distinct inputs <code>x</code> and <code>y</code> such that <code>h x == h y</code>.</p>
-<p>In the remainder of this post we’ll assume <code>hash</code> is a collision resistant hash function and will explore how to construct a function <code>hashL</code> that receives a list and produces a hash. The final objective is to construct <code>hashL</code> to be collision resistant.</p>
+<p>This little post arises from a small exercise we’ve done while at
+Oracle Labs, when we (myself, Mark Moir, Harold Carr and Lisandra Silva)
+were working on formal verification of authenticated data structures and
+needed to reason about the hash of certain compound structs. It is often
+the case one needs to combine two or more values and feed the result to
+a hash function. For the sake of this discussion, say we are writing
+some Haskell function <code>hashL</code> that is supposed to combine a
+list of <code>ByteString</code>s into a finite length bitstring in a
+<em>collision resistant</em> fashion. We say a hash function
+<code>h</code> is collision resistant iff it is computationally
+infeasible to find two distinct inputs <code>x</code> and <code>y</code>
+such that <code>h x == h y</code>.</p>
+<p>In the remainder of this post we’ll assume <code>hash</code> is a
+collision resistant hash function and will explore how to construct a
+function <code>hashL</code> that receives a list and produces a hash.
+The final objective is to construct <code>hashL</code> to be collision
+resistant.</p>
 <p>A bad first approximation for <code>hashL</code> could be:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="ot">hashL ::</span> [<span class="dt">ByteString</span>] <span class="ot">-&gt;</span> <span class="dt">Hash</span></a>
-<a class="sourceLine" id="cb1-2" title="2">hashL bs <span class="ot">=</span> hash (<span class="fu">concat</span> bs)</a></code></pre></div>
-<p>Even though <code>hash</code> is itself collision resistant, since <code>concat</code> is <em>not</em> injective, we can easily show <code>hashL</code> is not collision resistant:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1">hashL [<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;de&quot;</span>] <span class="op">==</span> hash (<span class="fu">concat</span> [<span class="st">&quot;abc&quot;</span> , <span class="st">&quot;de&quot;</span>])</a>
-<a class="sourceLine" id="cb2-2" title="2">                    <span class="op">==</span> hash (<span class="fu">concat</span> [<span class="st">&quot;ab&quot;</span> , <span class="st">&quot;cde&quot;</span>])</a>
-<a class="sourceLine" id="cb2-3" title="3">                    <span class="op">==</span> hashL [<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;cde&quot;</span>]</a></code></pre></div>
-<p>Using a field separator will not save us. Since the input <code>ByteString</code>s can contain any character, one of the inputs might contain the separator itself. For example, take:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1">hashL bs <span class="ot">=</span> hash (<span class="fu">concat</span> <span class="op">$</span> intersperse <span class="st">&quot;;&quot;</span> bs)</a></code></pre></div>
-<p>It is still the case that <code>hashL</code> is not collision resistant: <code>hashL ["a;b", "c"]</code> yields the same result as <code>hashL ["a", "b;c"]</code>.</p>
-<p>The main issue is the non-injective <code>concat</code> function, given <code>concat xs == concat ys</code>, is is not necessarily the case that <code>xs == ys</code>. If we use some injective function <code>encode</code> instead of concat, and define <code>hashL</code> as <code>hash . encode</code> we can show that finding a collision for <code>hashL</code> requires finding a collision for <code>hash</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">hashL ::</span> [<span class="dt">ByteString</span>] <span class="ot">-&gt;</span> <span class="dt">Hash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>hashL bs <span class="ot">=</span> hash (<span class="fu">concat</span> bs)</span></code></pre></div>
+<p>Even though <code>hash</code> is itself collision resistant, since
+<code>concat</code> is <em>not</em> injective, we can easily show
+<code>hashL</code> is not collision resistant:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hashL [<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;de&quot;</span>] <span class="op">==</span> hash (<span class="fu">concat</span> [<span class="st">&quot;abc&quot;</span> , <span class="st">&quot;de&quot;</span>])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                    <span class="op">==</span> hash (<span class="fu">concat</span> [<span class="st">&quot;ab&quot;</span> , <span class="st">&quot;cde&quot;</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                    <span class="op">==</span> hashL [<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;cde&quot;</span>]</span></code></pre></div>
+<p>Using a field separator will not save us. Since the input
+<code>ByteString</code>s can contain any character, one of the inputs
+might contain the separator itself. For example, take:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hashL bs <span class="ot">=</span> hash (<span class="fu">concat</span> <span class="op">$</span> intersperse <span class="st">&quot;;&quot;</span> bs)</span></code></pre></div>
+<p>It is still the case that <code>hashL</code> is not collision
+resistant: <code>hashL ["a;b", "c"]</code> yields the same result as
+<code>hashL ["a", "b;c"]</code>.</p>
+<p>The main issue is the non-injective <code>concat</code> function,
+given <code>concat xs == concat ys</code>, is is not necessarily the
+case that <code>xs == ys</code>. If we use some injective function
+<code>encode</code> instead of concat, and define <code>hashL</code> as
+<code>hash . encode</code> we can show that finding a collision for
+<code>hashL</code> requires finding a collision for
+<code>hash</code>.</p>
 <h2 id="encoding-bytestring">Encoding <code>[ByteString]</code></h2>
-<p>In practice, the <code>encode</code> function is often some variant of <code>DER</code> from the <a href="http://luca.ntop.org/Teaching/Appunti/asn1.html">ASN.1</a> standards. Encoding a value <code>x</code> with <code>DER</code> can be thought of as something like: <code>concat [ tagTypeOf x , length (toByteString x) , toByteString x ]</code>. Take Haskell’s <code>Data.Serialize.encode</code>, for example, which does something similar for encoding <a href="http://hackage.haskell.org/package/cereal-0.5.8.1/docs/src/Data.Serialize.html#line-478">lists</a>: it prefixes the length of the list before encoding its elements, for example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" title="1"><span class="ot">encode ::</span> [<span class="dt">ByteString</span>] <span class="ot">-&gt;</span> <span class="dt">ByteString</span></a>
-<a class="sourceLine" id="cb4-2" title="2">encode as <span class="ot">=</span> encodeWord64 (<span class="fu">length</span> as) <span class="op">++</span> <span class="fu">concatMap</span> encodeS as</a>
-<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">where</span> encodeS s <span class="ot">=</span> encodeWord64 (B.length s) <span class="op">++</span> s</a></code></pre></div>
-<p>The <code>encode</code> function above will work just fine in practice as long as no bytestring in the input list exceeds the maximum size, in this case, <code>2^64</code>. This means that to prove injectivity of this method we would need to constrain all inputs to encode to less than the maximum number of bytes, otherwise the function is <em>not</em> injective. This is at least a little inconvenient.</p>
-<p>In fact, we will be switching to Agda for disussing the injevtivity proof, we also assume some Agda (or any other depentently typed language) experience from the reader. Let us warm up with the necessary definitions to talk about <code>ByteString</code>s, defined as a list of bytes:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">data</span> Bit <span class="ot">:</span> <span class="dt">Set</span> <span class="kw">where</span></a>
-<a class="sourceLine" id="cb5-2" title="2">  I O <span class="ot">:</span> Bit</a>
-<a class="sourceLine" id="cb5-3" title="3"></a>
-<a class="sourceLine" id="cb5-4" title="4">ByteString <span class="ot">:</span> <span class="dt">Set</span></a>
-<a class="sourceLine" id="cb5-5" title="5">ByteString <span class="ot">=</span> List <span class="ot">(</span>Vec Bit <span class="dv">8</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-6" title="6"></a>
-<a class="sourceLine" id="cb5-7" title="7">BitString <span class="ot">:</span> <span class="dt">Set</span></a>
-<a class="sourceLine" id="cb5-8" title="8">BitString <span class="ot">=</span> List Bit</a></code></pre></div>
-<p>The DER approach mentioned above would yield an injectivity lemma modulo some constraint on the lengths of the inputs. It could be captured by someting like the following Agda type:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb6-1" title="1">    <span class="ot">(</span>xs ys <span class="ot">:</span> List ByteString<span class="ot">)</span> </a>
-<a class="sourceLine" id="cb6-2" title="2">  <span class="ot">→</span> All <span class="ot">(\</span> x <span class="ot">→</span> length x &lt; MaxLen<span class="ot">)</span> xs</a>
-<a class="sourceLine" id="cb6-3" title="3">  <span class="ot">→</span> All <span class="ot">(\</span> y <span class="ot">→</span> length y &lt; MaxLen<span class="ot">)</span> ys</a>
-<a class="sourceLine" id="cb6-4" title="4">  <span class="ot">→</span> encode xs == encode ys</a>
-<a class="sourceLine" id="cb6-5" title="5">  <span class="ot">→</span> xs == ys</a></code></pre></div>
-<p>The type above reads “for all lists <code>xs</code> and <code>ys</code> such that all elements of <code>xs</code> (resp. <code>ys</code>) have length smaller than <code>MaxLen</code>, <code>encode</code> is injective”. Using this to reason about complex usages of <code>encode</code> will quickly become intractable as we would have to keep carrying proofs about the lengths of the input bytestrings.</p>
-<p>As it turns out, there is an easier option. We can encode the list structure, with codes for <code>(:)</code> and <code>[]</code>, directly. This can be thought of as something like <code>toJSON</code>, for example. Instead of dealing with complex formats, we will add two bits for every byte in the original input. These two bits will distinguish three situations, observed in the <code>toBitString-tag</code> Agda function below.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb7-1" title="1">toBitString-tag <span class="ot">:</span> ByteString <span class="ot">→</span> BitString</a>
-<a class="sourceLine" id="cb7-2" title="2">toBitString-tag []       <span class="ot">=</span> O ∷ O ∷ []</a>
-<a class="sourceLine" id="cb7-3" title="3">toBitString-tag <span class="ot">(</span>b ∷ bs<span class="ot">)</span> <span class="ot">=</span> I ∷ O ∷ Vec-toList b ++ toBitString-tag&#39; bs </a>
-<a class="sourceLine" id="cb7-4" title="4"></a>
-<a class="sourceLine" id="cb7-5" title="5">toBitString-tag&#39; <span class="ot">:</span> ByteString <span class="ot">→</span> BitString</a>
-<a class="sourceLine" id="cb7-6" title="6">toBitString-tag&#39; <span class="ot">=</span> map <span class="ot">(\</span> x <span class="ot">→</span>  I ∷ I ∷ x<span class="ot">)</span></a></code></pre></div>
+<p>In practice, the <code>encode</code> function is often some variant
+of <code>DER</code> from the <a
+href="http://luca.ntop.org/Teaching/Appunti/asn1.html">ASN.1</a>
+standards. Encoding a value <code>x</code> with <code>DER</code> can be
+thought of as something like:
+<code>concat [ tagTypeOf x , length (toByteString x) , toByteString x ]</code>.
+Take Haskell’s <code>Data.Serialize.encode</code>, for example, which
+does something similar for encoding <a
+href="http://hackage.haskell.org/package/cereal-0.5.8.1/docs/src/Data.Serialize.html#line-478">lists</a>:
+it prefixes the length of the list before encoding its elements, for
+example:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">encode ::</span> [<span class="dt">ByteString</span>] <span class="ot">-&gt;</span> <span class="dt">ByteString</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>encode as <span class="ot">=</span> encodeWord64 (<span class="fu">length</span> as) <span class="op">++</span> <span class="fu">concatMap</span> encodeS as</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span> encodeS s <span class="ot">=</span> encodeWord64 (B.length s) <span class="op">++</span> s</span></code></pre></div>
+<p>The <code>encode</code> function above will work just fine in
+practice as long as no bytestring in the input list exceeds the maximum
+size, in this case, <code>2^64</code>. This means that to prove
+injectivity of this method we would need to constrain all inputs to
+encode to less than the maximum number of bytes, otherwise the function
+is <em>not</em> injective. This is at least a little inconvenient.</p>
+<p>In fact, we will be switching to Agda for disussing the injevtivity
+proof, we also assume some Agda (or any other depentently typed
+language) experience from the reader. Let us warm up with the necessary
+definitions to talk about <code>ByteString</code>s, defined as a list of
+bytes:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> Bit <span class="ot">:</span> <span class="dt">Set</span> <span class="kw">where</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  I O <span class="ot">:</span> Bit</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ByteString <span class="ot">:</span> <span class="dt">Set</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ByteString <span class="ot">=</span> List <span class="ot">(</span>Vec Bit <span class="dv">8</span><span class="ot">)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>BitString <span class="ot">:</span> <span class="dt">Set</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>BitString <span class="ot">=</span> List Bit</span></code></pre></div>
+<p>The DER approach mentioned above would yield an injectivity lemma
+modulo some constraint on the lengths of the inputs. It could be
+captured by someting like the following Agda type:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="ot">(</span>xs ys <span class="ot">:</span> List ByteString<span class="ot">)</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> All <span class="ot">(\</span> x <span class="ot">→</span> length x &lt; MaxLen<span class="ot">)</span> xs</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> All <span class="ot">(\</span> y <span class="ot">→</span> length y &lt; MaxLen<span class="ot">)</span> ys</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> encode xs == encode ys</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> xs == ys</span></code></pre></div>
+<p>The type above reads “for all lists <code>xs</code> and
+<code>ys</code> such that all elements of <code>xs</code> (resp.
+<code>ys</code>) have length smaller than <code>MaxLen</code>,
+<code>encode</code> is injective”. Using this to reason about complex
+usages of <code>encode</code> will quickly become intractable as we
+would have to keep carrying proofs about the lengths of the input
+bytestrings.</p>
+<p>As it turns out, there is an easier option. We can encode the list
+structure, with codes for <code>(:)</code> and <code>[]</code>,
+directly. This can be thought of as something like <code>toJSON</code>,
+for example. Instead of dealing with complex formats, we will add two
+bits for every byte in the original input. These two bits will
+distinguish three situations, observed in the
+<code>toBitString-tag</code> Agda function below.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>toBitString-tag <span class="ot">:</span> ByteString <span class="ot">→</span> BitString</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>toBitString-tag []       <span class="ot">=</span> O ∷ O ∷ []</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>toBitString-tag <span class="ot">(</span>b ∷ bs<span class="ot">)</span> <span class="ot">=</span> I ∷ O ∷ Vec-toList b ++ toBitString-tag&#39; bs </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>toBitString-tag&#39; <span class="ot">:</span> ByteString <span class="ot">→</span> BitString</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>toBitString-tag&#39; <span class="ot">=</span> map <span class="ot">(\</span> x <span class="ot">→</span>  I ∷ I ∷ x<span class="ot">)</span></span></code></pre></div>
 <p>Finally, the <code>encode</code> function can be given by:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb8-1" title="1">encode <span class="ot">:</span> List ByteString <span class="ot">-&gt;</span> BitString</a>
-<a class="sourceLine" id="cb8-2" title="2">encode <span class="ot">=</span> concat ∘ List-map toBitString-tag</a></code></pre></div>
-<p>But why is it injective? How do we prove it? Let us calculate what would it take to have <code>encode</code> produce two equal results for different lists. We start with:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>encode <span class="ot">:</span> List ByteString <span class="ot">-&gt;</span> BitString</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>encode <span class="ot">=</span> concat ∘ List-map toBitString-tag</span></code></pre></div>
+<p>But why is it injective? How do we prove it? Let us calculate what
+would it take to have <code>encode</code> produce two equal results for
+different lists. We start with:</p>
 <pre><code>encode ([a] ∷ c) ≡ encode ([b₀ , b₁] ∷ d)</code></pre>
 <p>Which is definitionally equal to:</p>
 <pre><code>toBitString-tag [a] ++ encode c ≡ toBitString-tag [b₀ , b₁] ++ encode d</code></pre>
-<p>Another definitional equality, reducing <code>toBitString-tag</code>, yields:</p>
+<p>Another definitional equality, reducing <code>toBitString-tag</code>,
+yields:</p>
 <pre><code>1 0 a₀ ⋯  a₇ ++ encode c ≡ 1 0 b₀₀ ⋯  b₀₇ 1 1 b₁₀ ⋯ b₁₇ ++ encode d</code></pre>
-<p>Since <code>++</code> is injective for same-length prefixes – if <code>xs ++ ys == ws ++ zs</code> and <code>length xs == length ws</code>, then <code>xs == ws</code> and <code>ys == zs</code> – the equality above holds if and only if:</p>
+<p>Since <code>++</code> is injective for same-length prefixes – if
+<code>xs ++ ys == ws ++ zs</code> and
+<code>length xs == length ws</code>, then <code>xs == ws</code> and
+<code>ys == zs</code> – the equality above holds if and only if:</p>
 <ol type="1">
 <li><code>aᵢ ≡ b₀ᵢ</code> for <code>i &lt;- [0..7]</code></li>
 <li><code>encode c ≡ 1 1 b₁₀ ⋯ b₁₇ ++ encode d</code></li>
 </ol>
-<p>Note however, that whatever the input, <code>encode</code> will always yield a bitstring with <code>10</code> at the head, hence, it is impossible for (2) above to hold. This is good: we’ve sketched a proof that <code>encode ([a] ∷ c) ≡ encode ([b₀ , b₁] ∷ d)</code> is impossible based on the invariant that <code>encode x</code> always starts with <code>10</code> and by reasoning over <code>xs ++ ys == ws ++ zs</code>. This gives us the blueprint we need to move towards an Agda proof.</p>
-<p>The Agda proof relies heavily on reasoning about about <code>xs ++ ys == ws ++ zs</code>, where we infer that <code>xs</code> is a prefix of <code>ws</code> or vice-versa. In Agda, we write that a list is a prefix of another through the datatype below:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">data</span> <span class="ot">_</span>≺<span class="ot">_</span> <span class="ot">{</span>a<span class="ot">}{</span>A <span class="ot">:</span> <span class="dt">Set</span> a<span class="ot">}</span> <span class="ot">:</span> List A <span class="ot">→</span> List A <span class="ot">→</span> <span class="dt">Set</span> <span class="kw">where</span></a>
-<a class="sourceLine" id="cb12-2" title="2">  z≺n <span class="ot">:</span> <span class="ot">∀{</span>xs<span class="ot">}</span>      <span class="ot">→</span> [] ≺ xs</a>
-<a class="sourceLine" id="cb12-3" title="3">  s≺s <span class="ot">:</span> <span class="ot">∀{</span>x xs ys<span class="ot">}</span> <span class="ot">→</span> xs ≺ ys <span class="ot">→</span> <span class="ot">(</span>x ∷ xs<span class="ot">)</span> ≺ <span class="ot">(</span>x ∷ ys<span class="ot">)</span></a></code></pre></div>
-<p>A value of type <code>xs ≺ ys</code> represents a proof that <code>xs</code> is a prefix of <code>ys</code>. In other words, there exists <code>zs</code> such that <code>xs ++ zs = ys</code>. Moreover, we can extract the <code>zs</code> directly from the proof:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb13-1" title="1">≺-drop <span class="ot">:</span> <span class="ot">∀{</span>a<span class="ot">}{</span>A <span class="ot">:</span> <span class="dt">Set</span> a<span class="ot">}{</span>xs ys <span class="ot">:</span> List A<span class="ot">}</span> <span class="ot">→</span> xs ≺ ys <span class="ot">→</span> List A</a>
-<a class="sourceLine" id="cb13-2" title="2">≺-drop <span class="ot">{</span>ys <span class="ot">=</span> ys<span class="ot">}</span> z≺n <span class="ot">=</span> ys</a>
-<a class="sourceLine" id="cb13-3" title="3">≺-drop <span class="ot">(</span>s≺s a<span class="ot">)</span>       <span class="ot">=</span> ≺-drop a</a></code></pre></div>
-<p>Next, we capture this reasoning over the hypothesis that some <code>xs ++ ys</code> coincides with some <code>ws ++ zs</code> through a universal property:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb14-1" title="1">++-≺ <span class="ot">:</span> <span class="ot">∀{</span>a<span class="ot">}{</span>A <span class="ot">:</span> <span class="dt">Set</span> a<span class="ot">}(</span>xs ws <span class="ot">:</span> List A<span class="ot">){</span>ys zs <span class="ot">:</span> List A<span class="ot">}</span></a>
-<a class="sourceLine" id="cb14-2" title="2">     <span class="ot">→</span> xs ++ ys ≡ ws ++ zs</a>
-<a class="sourceLine" id="cb14-3" title="3">     <span class="ot">→</span> Σ <span class="ot">(</span>xs ≺ ws<span class="ot">)</span> <span class="ot">(λ</span> prf <span class="ot">→</span> ≺-drop prf ++ zs ≡ ys<span class="ot">)</span></a>
-<a class="sourceLine" id="cb14-4" title="4">     ⊎ Σ <span class="ot">(</span>ws ≺ xs<span class="ot">)</span> <span class="ot">(λ</span> prf <span class="ot">→</span> ≺-drop prf ++ ys ≡ zs<span class="ot">)</span></a></code></pre></div>
-<p>Note that besides returning whether <code>xs</code> is a prefix of <code>ws</code> or vice-versa, we additionally return a universal characterization for <code>ys</code> (resp <code>zs</code>). The proof of <code>++-≺</code> is a straightforward induction on both <code>xs</code> and <code>ws</code>.</p>
-<p>Next, we need a proof that if <code>toBitString-tag a</code> is a prefix of <code>toBitString-tag b</code>, then either <code>a = b</code> or the suffix of <code>toBitString-tag b</code> that arises from removing the prefix <code>toBitString-tag a</code> starts with <code>11</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb15-1" title="1">toBitString-tag-≺</a>
-<a class="sourceLine" id="cb15-2" title="2">  <span class="ot">:</span> <span class="ot">∀{</span>a b<span class="ot">}</span></a>
-<a class="sourceLine" id="cb15-3" title="3">  <span class="ot">→</span> <span class="ot">(</span>a≺bbs <span class="ot">:</span> toBitString-tag a ≺ toBitString-tag b<span class="ot">)</span></a>
-<a class="sourceLine" id="cb15-4" title="4">  <span class="ot">→</span> a ≡ b ⊎ ∃[ tail ] <span class="ot">(</span>≺-drop a≺bbs ≡ I ∷ I ∷ tail<span class="ot">)</span></a></code></pre></div>
-<p>Proving <code>toBitString-tag-≺</code> above requires two lemmas. One about how <code>xs ++ ys ≺ ws ++ zs</code> implies <code>ys ≺ zs</code> when <code>length xs == length ws</code>. The second one is exactly like <code>toBitString-tag-≺</code> but concerns the auxiliary <code>toBitString-tag'</code> function.</p>
-<p>The observation that <code>encode</code> never starts with <code>11</code> is trivial to prove:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb16-1" title="1">encode-[]⊎tf <span class="ot">:</span> <span class="ot">∀</span> as <span class="ot">{</span>bs<span class="ot">}</span> <span class="ot">→</span> true ∷ true ∷ bs ≢ encode as</a>
-<a class="sourceLine" id="cb16-2" title="2">encode-[]⊎tf <span class="ot">(</span>[] ∷ as<span class="ot">)</span> <span class="ot">()</span></a>
-<a class="sourceLine" id="cb16-3" title="3">encode-[]⊎tf <span class="ot">((_</span> ∷ <span class="ot">_)</span> ∷ as<span class="ot">)</span> <span class="ot">()</span> </a></code></pre></div>
-<p>Finally, we have all the necesary tools to prove that <code>encode</code> is injective.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb17-1" title="1">encode-inj <span class="ot">:</span> <span class="ot">∀</span> xs ys <span class="ot">→</span> encode xs ≡ encode ys <span class="ot">→</span> xs ≡ ys</a></code></pre></div>
-<p>The proof goes by induction on <code>xs</code> and <code>ys</code>, as expected.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode agda"><code class="sourceCode agda"><a class="sourceLine" id="cb18-1" title="1">encode-inj <span class="ot">(</span>a ∷ as<span class="ot">)</span> <span class="ot">(</span>b ∷ bs<span class="ot">)</span> hyp </a>
-<a class="sourceLine" id="cb18-2" title="2">  <span class="kw">with</span> ++-≺ <span class="ot">(</span>toBitString-tag a<span class="ot">)</span> <span class="ot">(</span>toBitString-tag b<span class="ot">)</span> hyp</a>
-<a class="sourceLine" id="cb18-3" title="3"><span class="ot">...|</span> inj₁ <span class="ot">(</span>a≺b , prf<span class="ot">)</span> </a>
-<a class="sourceLine" id="cb18-4" title="4">  <span class="kw">with</span> toBitString-tag-≺ a≺b </a>
-<a class="sourceLine" id="cb18-5" title="5"><span class="ot">...|</span> inj₁ refl <span class="ot">=</span> cong <span class="ot">(</span>a ∷<span class="ot">_)</span> <span class="ot">(</span>encode-inj as bs <span class="ot">...)</span></a>
-<a class="sourceLine" id="cb18-6" title="6"><span class="ot">...|</span> inj₂ <span class="ot">(</span>tail , aux<span class="ot">)</span> <span class="kw">rewrite</span> aux <span class="ot">=</span> ⊥-elim <span class="ot">(</span>encode-[]⊎tf as prf<span class="ot">)</span></a>
-<a class="sourceLine" id="cb18-7" title="7">encode-inj <span class="ot">(</span>a ∷ as<span class="ot">)</span> <span class="ot">(</span>b ∷ bs<span class="ot">)</span> hyp </a>
-<a class="sourceLine" id="cb18-8" title="8">   <span class="ot">|</span> inj₂ <span class="ot">(</span>b≺a , prf<span class="ot">)</span> <span class="ot">=</span> <span class="co">-- symmetric</span></a></code></pre></div>
+<p>Note however, that whatever the input, <code>encode</code> will
+always yield a bitstring with <code>10</code> at the head, hence, it is
+impossible for (2) above to hold. This is good: we’ve sketched a proof
+that <code>encode ([a] ∷ c) ≡ encode ([b₀ , b₁] ∷ d)</code> is
+impossible based on the invariant that <code>encode x</code> always
+starts with <code>10</code> and by reasoning over
+<code>xs ++ ys == ws ++ zs</code>. This gives us the blueprint we need
+to move towards an Agda proof.</p>
+<p>The Agda proof relies heavily on reasoning about about
+<code>xs ++ ys == ws ++ zs</code>, where we infer that <code>xs</code>
+is a prefix of <code>ws</code> or vice-versa. In Agda, we write that a
+list is a prefix of another through the datatype below:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="ot">_</span>≺<span class="ot">_</span> <span class="ot">{</span>a<span class="ot">}{</span>A <span class="ot">:</span> <span class="dt">Set</span> a<span class="ot">}</span> <span class="ot">:</span> List A <span class="ot">→</span> List A <span class="ot">→</span> <span class="dt">Set</span> <span class="kw">where</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  z≺n <span class="ot">:</span> <span class="ot">∀{</span>xs<span class="ot">}</span>      <span class="ot">→</span> [] ≺ xs</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  s≺s <span class="ot">:</span> <span class="ot">∀{</span>x xs ys<span class="ot">}</span> <span class="ot">→</span> xs ≺ ys <span class="ot">→</span> <span class="ot">(</span>x ∷ xs<span class="ot">)</span> ≺ <span class="ot">(</span>x ∷ ys<span class="ot">)</span></span></code></pre></div>
+<p>A value of type <code>xs ≺ ys</code> represents a proof that
+<code>xs</code> is a prefix of <code>ys</code>. In other words, there
+exists <code>zs</code> such that <code>xs ++ zs = ys</code>. Moreover,
+we can extract the <code>zs</code> directly from the proof:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>≺-drop <span class="ot">:</span> <span class="ot">∀{</span>a<span class="ot">}{</span>A <span class="ot">:</span> <span class="dt">Set</span> a<span class="ot">}{</span>xs ys <span class="ot">:</span> List A<span class="ot">}</span> <span class="ot">→</span> xs ≺ ys <span class="ot">→</span> List A</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>≺-drop <span class="ot">{</span>ys <span class="ot">=</span> ys<span class="ot">}</span> z≺n <span class="ot">=</span> ys</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>≺-drop <span class="ot">(</span>s≺s a<span class="ot">)</span>       <span class="ot">=</span> ≺-drop a</span></code></pre></div>
+<p>Next, we capture this reasoning over the hypothesis that some
+<code>xs ++ ys</code> coincides with some <code>ws ++ zs</code> through
+a universal property:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>++-≺ <span class="ot">:</span> <span class="ot">∀{</span>a<span class="ot">}{</span>A <span class="ot">:</span> <span class="dt">Set</span> a<span class="ot">}(</span>xs ws <span class="ot">:</span> List A<span class="ot">){</span>ys zs <span class="ot">:</span> List A<span class="ot">}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="ot">→</span> xs ++ ys ≡ ws ++ zs</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="ot">→</span> Σ <span class="ot">(</span>xs ≺ ws<span class="ot">)</span> <span class="ot">(λ</span> prf <span class="ot">→</span> ≺-drop prf ++ zs ≡ ys<span class="ot">)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>     ⊎ Σ <span class="ot">(</span>ws ≺ xs<span class="ot">)</span> <span class="ot">(λ</span> prf <span class="ot">→</span> ≺-drop prf ++ ys ≡ zs<span class="ot">)</span></span></code></pre></div>
+<p>Note that besides returning whether <code>xs</code> is a prefix of
+<code>ws</code> or vice-versa, we additionally return a universal
+characterization for <code>ys</code> (resp <code>zs</code>). The proof
+of <code>++-≺</code> is a straightforward induction on both
+<code>xs</code> and <code>ws</code>.</p>
+<p>Next, we need a proof that if <code>toBitString-tag a</code> is a
+prefix of <code>toBitString-tag b</code>, then either <code>a = b</code>
+or the suffix of <code>toBitString-tag b</code> that arises from
+removing the prefix <code>toBitString-tag a</code> starts with
+<code>11</code>:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>toBitString-tag-≺</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">:</span> <span class="ot">∀{</span>a b<span class="ot">}</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> <span class="ot">(</span>a≺bbs <span class="ot">:</span> toBitString-tag a ≺ toBitString-tag b<span class="ot">)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> a ≡ b ⊎ ∃[ tail ] <span class="ot">(</span>≺-drop a≺bbs ≡ I ∷ I ∷ tail<span class="ot">)</span></span></code></pre></div>
+<p>Proving <code>toBitString-tag-≺</code> above requires two lemmas. One
+about how <code>xs ++ ys ≺ ws ++ zs</code> implies <code>ys ≺ zs</code>
+when <code>length xs == length ws</code>. The second one is exactly like
+<code>toBitString-tag-≺</code> but concerns the auxiliary
+<code>toBitString-tag'</code> function.</p>
+<p>The observation that <code>encode</code> never starts with
+<code>11</code> is trivial to prove:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>encode-[]⊎tf <span class="ot">:</span> <span class="ot">∀</span> as <span class="ot">{</span>bs<span class="ot">}</span> <span class="ot">→</span> true ∷ true ∷ bs ≢ encode as</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>encode-[]⊎tf <span class="ot">(</span>[] ∷ as<span class="ot">)</span> <span class="ot">()</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>encode-[]⊎tf <span class="ot">((_</span> ∷ <span class="ot">_)</span> ∷ as<span class="ot">)</span> <span class="ot">()</span> </span></code></pre></div>
+<p>Finally, we have all the necesary tools to prove that
+<code>encode</code> is injective.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>encode-inj <span class="ot">:</span> <span class="ot">∀</span> xs ys <span class="ot">→</span> encode xs ≡ encode ys <span class="ot">→</span> xs ≡ ys</span></code></pre></div>
+<p>The proof goes by induction on <code>xs</code> and <code>ys</code>,
+as expected.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode agda"><code class="sourceCode agda"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>encode-inj <span class="ot">(</span>a ∷ as<span class="ot">)</span> <span class="ot">(</span>b ∷ bs<span class="ot">)</span> hyp </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">with</span> ++-≺ <span class="ot">(</span>toBitString-tag a<span class="ot">)</span> <span class="ot">(</span>toBitString-tag b<span class="ot">)</span> hyp</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ot">...|</span> inj₁ <span class="ot">(</span>a≺b , prf<span class="ot">)</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">with</span> toBitString-tag-≺ a≺b </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ot">...|</span> inj₁ refl <span class="ot">=</span> cong <span class="ot">(</span>a ∷<span class="ot">_)</span> <span class="ot">(</span>encode-inj as bs <span class="ot">...)</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ot">...|</span> inj₂ <span class="ot">(</span>tail , aux<span class="ot">)</span> <span class="kw">rewrite</span> aux <span class="ot">=</span> ⊥-elim <span class="ot">(</span>encode-[]⊎tf as prf<span class="ot">)</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>encode-inj <span class="ot">(</span>a ∷ as<span class="ot">)</span> <span class="ot">(</span>b ∷ bs<span class="ot">)</span> hyp </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>   <span class="ot">|</span> inj₂ <span class="ot">(</span>b≺a , prf<span class="ot">)</span> <span class="ot">=</span> <span class="co">-- symmetric</span></span></code></pre></div>
 <h2 id="wrapping-it-up">Wrapping it up</h2>
-<p>If you come accross the need to use a hash function to combine multiple values and, moreover, you need to rely on collision resistance of this construction, make sure you reason carefully about how you are writing this.</p>
-<p>All in all, this was a fun Agda excercise and illustrates well the process of solving a problems with Agda. We first find the relations we need, then encode them in suitable datatypes (list prefixes in our case) and only then go on to actually proving things.</p>
+<p>If you come accross the need to use a hash function to combine
+multiple values and, moreover, you need to rely on collision resistance
+of this construction, make sure you reason carefully about how you are
+writing this.</p>
+<p>All in all, this was a fun Agda excercise and illustrates well the
+process of solving a problems with Agda. We first find the relations we
+need, then encode them in suitable datatypes (list prefixes in our case)
+and only then go on to actually proving things.</p>
 </div>
 </div>
 </body>

@@ -105,35 +105,113 @@ Victor Cacciari Miraldo
   </div>
 </div>
 <div class="column right">
-<h1 id="type-safe-generic-differencing-for-mutually-recursive-families">Type-Safe Generic Differencing for Mutually Recursive Families</h1>
-<p>This page enumerates the publications and deliverables that came out of my PhD. I was supervised by Wouter Swierstra and Gabriele Keller. The research herein was funded by NWO (TOP, number 612.001.401, <em>Revision control of structured data</em>).</p>
+<h1
+id="type-safe-generic-differencing-for-mutually-recursive-families">Type-Safe
+Generic Differencing for Mutually Recursive Families</h1>
+<p>This page enumerates the publications and deliverables that came out
+of my PhD. I was supervised by Wouter Swierstra and Gabriele Keller. The
+research herein was funded by NWO (TOP, number 612.001.401, <em>Revision
+control of structured data</em>).</p>
 <h3 id="abstract">Abstract</h3>
-<p>The UNIX <code>diff</code> tool – which computes the differences between two files in terms of a set of copied lines – is widely used in software version control. The fixed lines-of-code granularity, however, is sometimes too coarse and obscures simple changes, i.e., renaming a single parameter triggers the whole line to be seen as changed . This may lead to unnecessary conflicts when unrelated changes occur on the same line. Consequently, it is difficult to merge such changes automatically.</p>
-<p>During my PhD I investigated two approaches to structural differencing which work over a large class of datatypes. The first approach defines a type-indexed representation of patches and provides a clear merging algorithm, but it is computationally expensive to produce patches with this approach. The second approach addresses the efficiency problem by choosing an extensional representation for patches. This enables us to represent transformations involving insertions, deletions, duplication, contractions and permutations which are computable in linear time. With the added expressivity, however, comes added complexity. Consequently, the merging algorithm is more intricate and the patches can be harder to reason about.</p>
-<p>Both approaches can be instantiated to mutually recursive datatypes and, consequently, can be used to compare elements of most programming languages. Writing the software that does so, however, comes with additional challenges. To address this we have developed two new libraries for generic programming in Haskell.</p>
+<p>The UNIX <code>diff</code> tool – which computes the differences
+between two files in terms of a set of copied lines – is widely used in
+software version control. The fixed lines-of-code granularity, however,
+is sometimes too coarse and obscures simple changes, i.e., renaming a
+single parameter triggers the whole line to be seen as changed . This
+may lead to unnecessary conflicts when unrelated changes occur on the
+same line. Consequently, it is difficult to merge such changes
+automatically.</p>
+<p>During my PhD I investigated two approaches to structural
+differencing which work over a large class of datatypes. The first
+approach defines a type-indexed representation of patches and provides a
+clear merging algorithm, but it is computationally expensive to produce
+patches with this approach. The second approach addresses the efficiency
+problem by choosing an extensional representation for patches. This
+enables us to represent transformations involving insertions, deletions,
+duplication, contractions and permutations which are computable in
+linear time. With the added expressivity, however, comes added
+complexity. Consequently, the merging algorithm is more intricate and
+the patches can be harder to reason about.</p>
+<p>Both approaches can be instantiated to mutually recursive datatypes
+and, consequently, can be used to compare elements of most programming
+languages. Writing the software that does so, however, comes with
+additional challenges. To address this we have developed two new
+libraries for generic programming in Haskell.</p>
 <h2 id="list-of-publications">List of Publications</h2>
 <blockquote>
 <ol type="1">
-<li><p>Victor Cacciari Miraldo, Type Safe Generic Differencing of Mutually Recursive Families, PhD thesis. <a href="/data/MiraldoPhD.pdf">pdf</a></p></li>
-<li><p>Victor Cacciari Miraldo and Wouter Swierstra, An Efficient Algorithm for Type-Safe Structural Diffing, In <em>ICFP 2019, Berlin</em>. <a href="/data/icfp2019.pdf">pdf</a></p></li>
-<li>Alejandro Serrano Mena and Victor Cacciari Miraldo, Generic Programming of All Kinds, In <em>Haskell Symposyum 2018, St. Louis</em>. <a href="/data/hask2018_draft.pdf">pdf</a> <a href="/data/hask2018_slides.pdf">slides</a></li>
-<li><p>Victor Cacciari Miraldo and Alejandro Serrano Mena, Sums of Products for Mutually Recursive Datatypes, In <em>TyDe 2018, St. Louis</em>. <a href="/data/tyde2018_draft.pdf">pdf</a> <a href="/data/tyde2018_slides.pdf">slides</a></p></li>
-<li><p>Victor Cacciari Miraldo, Pierre-Évariste Dagand and Wouter Swierstra, Type-Directed Diffing of Structured Data, In <em>TyDe 2017, Oxford</em>. <a href="/data/tyde2017.pdf">pdf</a></p></li>
+<li><p>Victor Cacciari Miraldo, Type Safe Generic Differencing of
+Mutually Recursive Families, PhD thesis. <a
+href="/data/MiraldoPhD.pdf">pdf</a></p></li>
+<li><p>Victor Cacciari Miraldo and Wouter Swierstra, An Efficient
+Algorithm for Type-Safe Structural Diffing, In <em>ICFP 2019,
+Berlin</em>. <a href="/data/icfp2019.pdf">pdf</a></p></li>
+<li><p>Alejandro Serrano Mena and Victor Cacciari Miraldo, Generic
+Programming of All Kinds, In <em>Haskell Symposyum 2018, St. Louis</em>.
+<a href="/data/hask2018_draft.pdf">pdf</a> <a
+href="/data/hask2018_slides.pdf">slides</a></p></li>
+<li><p>Victor Cacciari Miraldo and Alejandro Serrano Mena, Sums of
+Products for Mutually Recursive Datatypes, In <em>TyDe 2018,
+St. Louis</em>. <a href="/data/tyde2018_draft.pdf">pdf</a> <a
+href="/data/tyde2018_slides.pdf">slides</a></p></li>
+<li><p>Victor Cacciari Miraldo, Pierre-Évariste Dagand and Wouter
+Swierstra, Type-Directed Diffing of Structured Data, In <em>TyDe 2017,
+Oxford</em>. <a href="/data/tyde2017.pdf">pdf</a></p></li>
 </ol>
 </blockquote>
 <h2 id="software">Software</h2>
 <h3 id="hdiff"><code>hdiff</code></h3>
-<p>The <a href="https://github.com/VictorCMiraldo/hdiff">hdiff</a> builts on top of our ICFP [2] and uses the various generic programming libraries we developed. It treats patches as pattern-expression pairs: the transformation that swaps two children of a binary tree is represented by <code>Bin x y -&gt; Bin y x</code>. The main advantage is the ease to define normal forms; the main difficulty is in handling duplications.</p>
-<p>Our empirical evaluation ([1], Chap 7) over a <a href="https://zenodo.org/record/3751038">dataset</a> of real conflicts suggests a good line of future work is to restrict <code>hdiff</code> to handle only linear patches. This might enable us to write a much simpler merging algorithm.</p>
+<p>The <a href="https://github.com/VictorCMiraldo/hdiff">hdiff</a>
+builts on top of our ICFP [2] and uses the various generic programming
+libraries we developed. It treats patches as pattern-expression pairs:
+the transformation that swaps two children of a binary tree is
+represented by <code>Bin x y -&gt; Bin y x</code>. The main advantage is
+the ease to define normal forms; the main difficulty is in handling
+duplications.</p>
+<p>Our empirical evaluation ([1], Chap 7) over a <a
+href="https://zenodo.org/record/3751038">dataset</a> of real conflicts
+suggests a good line of future work is to restrict <code>hdiff</code> to
+handle only linear patches. This might enable us to write a much simpler
+merging algorithm.</p>
 <h3 id="stdiff"><code>stdiff</code></h3>
-<p>The <code>stdiff</code> approach origniated from a collaboration with Pierre-Evariste [5]; it constitutes a first attempt at capturing differences between values of type <code>a</code> by induction on the structure of <code>a</code>. The work started as an <a href="https://github.com/VictorCMiraldo/stdiff">Agda repo</a>, which culminates in a proof of the commutativity of the merge algorithm:</p>
+<p>The <code>stdiff</code> approach origniated from a collaboration with
+Pierre-Evariste [5]; it constitutes a first attempt at capturing
+differences between values of type <code>a</code> by induction on the
+structure of <code>a</code>. The work started as an <a
+href="https://github.com/VictorCMiraldo/stdiff">Agda repo</a>, which
+culminates in a proof of the commutativity of the merge algorithm:</p>
 <pre><code>apply (merge p q) . apply p == apply (merge q p) . apply q</code></pre>
-<p>The Agda repo, however, only deals with regular datatypes (lists, trees, etc). Moreover, the computation of <code>stdiff</code> patches is very slow. Garufi’s MSc was a first attempt at working around these issues by hardcoding the approach to the Clojure language. This was later followed by van Putten’s MSc, where we finished porting the work to arbitrary mutually recursive families using the <a href="https://hackage.haskell.org/package/generics-mrsop">generics-mrsop</a> library.</p>
-<h3 id="simplistic-generics-library"><code>simplistic-generics</code> library</h3>
-<p>The <a href="https://hackage.haskell.org/package/simplistic-generics">simplistic-generics</a> came as a replacement for <a href="https://hackage.haskell.org/package/generics-mrsop">generics-mrsop</a>, after we bumped into two compiler bugs when attempting to instantiate it with large families. This has also been joint work with Alejandro Serrano.</p>
+<p>The Agda repo, however, only deals with regular datatypes (lists,
+trees, etc). Moreover, the computation of <code>stdiff</code> patches is
+very slow. Garufi’s MSc was a first attempt at working around these
+issues by hardcoding the approach to the Clojure language. This was
+later followed by van Putten’s MSc, where we finished porting the work
+to arbitrary mutually recursive families using the <a
+href="https://hackage.haskell.org/package/generics-mrsop">generics-mrsop</a>
+library.</p>
+<h3 id="simplistic-generics-library"><code>simplistic-generics</code>
+library</h3>
+<p>The <a
+href="https://hackage.haskell.org/package/simplistic-generics">simplistic-generics</a>
+came as a replacement for <a
+href="https://hackage.haskell.org/package/generics-mrsop">generics-mrsop</a>,
+after we bumped into two compiler bugs when attempting to instantiate it
+with large families. This has also been joint work with Alejandro
+Serrano.</p>
 <h3 id="generics-mrsop-library"><code>generics-mrsop</code> library</h3>
-<p>The <a href="https://hackage.haskell.org/package/generics-mrsop">generics-mrsop</a> library [4] was our first attempt generic programming with mutually recursive families. Unfortunately, we were held back by two compiler issues (<a href="https://gitlab.haskell.org/ghc/ghc/-/issues/17223">#17223</a> and <a href="https://gitlab.haskell.org/ghc/ghc/-/issues/14987">14987</a>) when attempting to use larger families (such as the Python AST) with this library.</p>
-<p>This work was done in close collaboration with Alejandro Serrano, and also sparked other interesting generic programming approaches [3], including the hability to handle a large class of GADTs, for example.</p>
+<p>The <a
+href="https://hackage.haskell.org/package/generics-mrsop">generics-mrsop</a>
+library [4] was our first attempt generic programming with mutually
+recursive families. Unfortunately, we were held back by two compiler
+issues (<a
+href="https://gitlab.haskell.org/ghc/ghc/-/issues/17223">#17223</a> and
+<a href="https://gitlab.haskell.org/ghc/ghc/-/issues/14987">14987</a>)
+when attempting to use larger families (such as the Python AST) with
+this library.</p>
+<p>This work was done in close collaboration with Alejandro Serrano, and
+also sparked other interesting generic programming approaches [3],
+including the hability to handle a large class of GADTs, for
+example.</p>
 </div>
 </div>
 </body>
